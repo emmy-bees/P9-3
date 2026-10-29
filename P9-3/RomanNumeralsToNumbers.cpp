@@ -3,9 +3,10 @@
 #include <string>
 using namespace std;
 int romanCharValue(char r);
+int convertRomanToInt(string s);
 int main() {
-	char romanNumeral = 'X';
-	cout << romanCharValue(romanNumeral);
+	string romanNumeral = "MDCCCLXXXVIII";
+	cout << convertRomanToInt(romanNumeral);
 
 
 	return 0;
@@ -35,4 +36,27 @@ int romanCharValue(char r) {
 		finalNumber += 1000;
 	}
 	return finalNumber;
+}
+
+int convertRomanToInt(string s) {
+	int total = 0;
+	while (s.length() > 0) {
+		if (s.length() == 1) {
+			total += romanCharValue(s.at(0));
+			s = s.substr(1);
+		}
+		else if (romanCharValue(s.at(0)) >= romanCharValue(s.at(1))) {
+			total += romanCharValue(s.at(0));
+			s = s.substr(1);
+		}
+		else {
+			total += romanCharValue(s.at(1)) - romanCharValue(s.at(0));
+			s = s.substr(1);
+			s = s.substr(1);
+		}
+		cout << endl << "number so far: " << total << endl << s;
+	}
+
+
+	return total;
 }
